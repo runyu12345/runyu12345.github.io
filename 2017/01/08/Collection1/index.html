@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Runyu's Blog">
 <meta property="og:description" content="Collection第一篇 ArrayList源码浅析每天写业务逻辑.代码量其实不少.不过真正总结起来,发现自己基础真心不扎实. 工作是越来越顺手,但技术还一直停留在上学时的水平. 静下来想想,自己会的东西真不多.以后会争取多整理各种常用工具类和常用框架的源码文档,在这里分享.
 作为一枚Java猿,不管是在学校学习还是在公司工作,最常用的类一定是String以及Collection中的ArrayL">
-<meta property="og:updated_time" content="2017-01-08T04:58:13.000Z">
+<meta property="og:updated_time" content="2017-01-08T05:04:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Collectin第一篇-ArrayList源码浅析">
 <meta name="twitter:description" content="Collection第一篇 ArrayList源码浅析每天写业务逻辑.代码量其实不少.不过真正总结起来,发现自己基础真心不扎实. 工作是越来越顺手,但技术还一直停留在上学时的水平. 静下来想想,自己会的东西真不多.以后会争取多整理各种常用工具类和常用框架的源码文档,在这里分享.
@@ -227,16 +227,7 @@ Collection的源码自己看过一些,但是总结起来发现之前还是漏掉
 </code></pre><ul>
 <li>最后是一道思考题:</li>
 </ul>
-<p>```<br>程序输出是true还是false? 为什么??<br>我也没太仔细研究….<br>这个需要看一下equals方法是如何重写的.<br>            List<string> list = new ArrayList<string>();<br>           list.add(“a”);  </string></string></p>
-<pre><code> // 使用构造器创建一个包含list的列表list1  
-List&lt;String&gt; list1 = new ArrayList&lt;String&gt;(list);  
- // 使用subList生成与list相同的列表list2  
-List&lt;String&gt; list2 = list.subList(0, list.size());  
-list2.add(&quot;b&quot;);  
-
-System.out.println(list.equals(list1));  
-System.out.println(list.equals(list2)); 
-</code></pre><p>```-</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">程序输出是true还是false? 为什么??</div><div class="line">我也没太仔细研究....</div><div class="line">这个需要看一下equals方法是如何重写的.</div><div class="line">            List&lt;String&gt; list = new ArrayList&lt;String&gt;();  </div><div class="line">	       list.add(&quot;a&quot;);  </div><div class="line">	        // 使用构造器创建一个包含list的列表list1  </div><div class="line">	       List&lt;String&gt; list1 = new ArrayList&lt;String&gt;(list);  </div><div class="line">	        // 使用subList生成与list相同的列表list2  </div><div class="line">	       List&lt;String&gt; list2 = list.subList(0, list.size());  </div><div class="line">	       list2.add(&quot;b&quot;);  </div><div class="line">	 System.out.println(list.equals(list1));  </div><div class="line">	 System.out.println(list.equals(list2));</div></pre></td></tr></table></figure>
 
       
 

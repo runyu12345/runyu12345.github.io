@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>Netty第一篇 入门Demo | Runyu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="年前的项目都停了,没什么开发任务了.到过年还有半个月的时间可以用来学习,棒棒的~ 为了给自己做一些技术储备,学习下NIO相关的知识.在网上找了下,Netty相关的书只有一本,评价还特别烂.各大博客网站的资料也特别零散,看起来相当费劲.所以准备自己动手,一点点学习下.以后在这里记录. 先上Demo.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netty第一篇 入门Demo">
+<meta property="og:url" content="http://yoursite.com/2017/01/17/netty1/index.html">
+<meta property="og:site_name" content="Runyu's Blog">
+<meta property="og:description" content="年前的项目都停了,没什么开发任务了.到过年还有半个月的时间可以用来学习,棒棒的~ 为了给自己做一些技术储备,学习下NIO相关的知识.在网上找了下,Netty相关的书只有一本,评价还特别烂.各大博客网站的资料也特别零散,看起来相当费劲.所以准备自己动手,一点点学习下.以后在这里记录. 先上Demo.">
+<meta property="og:updated_time" content="2017-01-17T14:16:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Netty第一篇 入门Demo">
+<meta name="twitter:description" content="年前的项目都停了,没什么开发任务了.到过年还有半个月的时间可以用来学习,棒棒的~ 为了给自己做一些技术储备,学习下NIO相关的知识.在网上找了下,Netty相关的书只有一本,评价还特别烂.各大博客网站的资料也特别零散,看起来相当费劲.所以准备自己动手,一点点学习下.以后在这里记录. 先上Demo.">
+  
+    <link rel="alternative" href="/atom.xml" title="Runyu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/kenan.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">张润宇</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">我的主页</a></li>
+	        
+				<li><a href="/tags/随笔/">随笔</a></li>
+	        
+				<li><a href="/tags/学习笔记/">学习笔记</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/runyu12345" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/runyu12345-26/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:runyu12345@163.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">张润宇</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/kenan.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">张润宇</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">我的主页</a></li>
+		        
+					<li><a href="/tags/随笔/">随笔</a></li>
+		        
+					<li><a href="/tags/学习笔记/">学习笔记</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/runyu12345" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/runyu12345-26/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:runyu12345@163.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-netty1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Netty第一篇 入门Demo
+    </h1>
+  
+
+        <a href="/2017/01/17/netty1/" class="archive-article-date">
+  	<time datetime="2017-01-17T14:08:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-17</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h6 id="年前的项目都停了-没什么开发任务了-到过年还有半个月的时间可以用来学习-棒棒的-为了给自己做一些技术储备-学习下NIO相关的知识-在网上找了下-Netty相关的书只有一本-评价还特别烂-各大博客网站的资料也特别零散-看起来相当费劲-所以准备自己动手-一点点学习下-以后在这里记录-先上Demo"><a href="#年前的项目都停了-没什么开发任务了-到过年还有半个月的时间可以用来学习-棒棒的-为了给自己做一些技术储备-学习下NIO相关的知识-在网上找了下-Netty相关的书只有一本-评价还特别烂-各大博客网站的资料也特别零散-看起来相当费劲-所以准备自己动手-一点点学习下-以后在这里记录-先上Demo" class="headerlink" title="年前的项目都停了,没什么开发任务了.到过年还有半个月的时间可以用来学习,棒棒的~ 为了给自己做一些技术储备,学习下NIO相关的知识.在网上找了下,Netty相关的书只有一本,评价还特别烂.各大博客网站的资料也特别零散,看起来相当费劲.所以准备自己动手,一点点学习下.以后在这里记录. 先上Demo."></a>年前的项目都停了,没什么开发任务了.到过年还有半个月的时间可以用来学习,棒棒的~ 为了给自己做一些技术储备,学习下NIO相关的知识.在网上找了下,Netty相关的书只有一本,评价还特别烂.各大博客网站的资料也特别零散,看起来相当费劲.所以准备自己动手,一点点学习下.以后在这里记录. 先上Demo.</h6><a id="more"></a>
+<hr>
+<ul>
+<li>据说Netty每个版本之间命名差距有些大.这里统一,都以Netty4.0版本为例.</li>
+<li>Demo包括NettyServer和NettyClient<ul>
+<li>NettyServer<ul>
+<li>启动</li>
+<li>接收数据</li>
+<li>字符串编码器</li>
+<li>字符串解码器</li>
+<li>收发数据</li>
+</ul>
+</li>
+<li>NettyClient(与NettyServer类似)</li>
+</ul>
+</li>
+<li>JDK版本为1.6</li>
+<li>服务端启动成功启动后,win系统可以在dos窗口下,使用telnet localhost 3333</li>
+</ul>
+<hr>
+<blockquote>
+<p><a href="http://netty.io/" target="_blank" rel="external">Netty</a>是由JBOSS提供的一个java开源框架。<a href="http://netty.io/" target="_blank" rel="external">Netty</a>提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的网络服务器和客户端程序。<br>也就是说，<a href="http://netty.io/" target="_blank" rel="external">Netty</a> 是一个基于NIO的客户、服务器端编程框架，使用<a href="http://netty.io/" target="_blank" rel="external">Netty</a> 可以确保你快速和简单的开发出一个网络应用，例如实现了某种协议的客户，服务端应用。Netty相当简化和流线化了网络应用的编程开发过程，例如，TCP和UDP的socket服务开发。<br>“快速”和“简单”并不用产生维护性或性能上的问题。<a href="http://netty.io/" target="_blank" rel="external">Netty</a> 是一个吸收了多种协议的实现经验，这些协议包括FTP,SMTP,HTTP，各种二进制，文本协议，并经过相当精心设计的项目，最终，<a href="http://netty.io/" target="_blank" rel="external">Netty</a> 成功的找到了一种方式，在保证易于开发的同时还保证了其应用的性能，稳定性和伸缩性。</p>
+</blockquote>
+<h4 id="NettyServer-Demo"><a href="#NettyServer-Demo" class="headerlink" title="NettyServer Demo"></a>NettyServer Demo</h4><ul>
+<li><p>启动Server的类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import com.netty.NettyServer;</div><div class="line"></div><div class="line">public class StartServer &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		</div><div class="line">		System.out.println(&quot;Netty4.0 服务开启&quot;);</div><div class="line">		System.out.println(&quot;Port:3333&quot;);</div><div class="line">		</div><div class="line">		NettyServer ns = new NettyServer();</div><div class="line">		ns.bind();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>ChildChannelHandler类</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">import io.netty.channel.ChannelInitializer;</div><div class="line">import io.netty.channel.socket.SocketChannel;</div><div class="line">import io.netty.handler.codec.LineBasedFrameDecoder;</div><div class="line">import io.netty.handler.codec.string.StringDecoder;</div><div class="line">import io.netty.handler.codec.string.StringEncoder;</div><div class="line"></div><div class="line">public class ChildChannelHandler extends ChannelInitializer&lt;SocketChannel&gt; &#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	protected void initChannel(SocketChannel ch) throws Exception &#123;</div><div class="line"></div><div class="line">		System.out.println(&quot;服务端与客户端成功连接&quot;);</div><div class="line">		System.out.println(&quot;IP:&quot; + ch.localAddress().getHostName());</div><div class="line">		System.out.println(&quot;Port:&quot; + ch.localAddress().getPort());</div><div class="line"></div><div class="line">		// 半包处理【基于换行符】</div><div class="line">		ch.pipeline().addLast(new LineBasedFrameDecoder(1024));</div><div class="line">		// 基于指定字符串【换行符，这样功能等同于LineBasedFrameDecoder】</div><div class="line">		// e.pipeline().addLast(new DelimiterBasedFrameDecoder(1024, false, Delimiters.lineDelimiter()));</div><div class="line">		// 基于最大长度</div><div class="line">		// e.pipeline().addLast(new FixedLengthFrameDecoder(4));</div><div class="line"></div><div class="line">		// 字符串编码</div><div class="line">		ch.pipeline().addLast(new StringDecoder());</div><div class="line">		// 字符串解码</div><div class="line">		ch.pipeline().addLast(new StringEncoder());</div><div class="line">		// 在管道中添加我们自己的接收数据实现方法</div><div class="line">		ch.pipeline().addLast(new MyServerHanlder());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>MyServerHanlder类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div></pre></td><td class="code"><pre><div class="line">import java.util.Date;</div><div class="line"></div><div class="line">import io.netty.buffer.ByteBuf;</div><div class="line">import io.netty.buffer.Unpooled;</div><div class="line">import io.netty.channel.ChannelHandlerContext;</div><div class="line">import io.netty.channel.SimpleChannelInboundHandler;</div><div class="line"></div><div class="line">public class MyServerHanlder extends SimpleChannelInboundHandler&lt;String&gt;&#123;</div><div class="line"></div><div class="line">	/*</div><div class="line">	 * channelAction </div><div class="line">	 * </div><div class="line">	 * channel 通道</div><div class="line">	 * action  活跃的</div><div class="line">	 * </div><div class="line">	 * 当客户端主动链接服务端的链接后，这个通道就是活跃的了。也就是客户端与服务端建立了通信通道并且可以传输数据</div><div class="line">	 * </div><div class="line">	 */</div><div class="line">	public void channelActive(ChannelHandlerContext ctx) throws Exception &#123;</div><div class="line">		// System.out.println(&quot;Client-Server已经连接&quot;);</div><div class="line">		// super.channelActive(ctx);</div><div class="line"></div><div class="line">		System.out.println(ctx.channel().localAddress().toString()+&quot; channelActive&quot;);</div><div class="line"></div><div class="line">		//通知您已经链接上客户端</div><div class="line">		String str = &quot;您已经开启与服务端链接&quot;+&quot; &quot;+new Date()+&quot; &quot;+ctx.channel().localAddress();</div><div class="line">		ByteBuf buf = Unpooled.buffer(str.getBytes().length);</div><div class="line">		buf.writeBytes(str.getBytes());</div><div class="line">		ctx.writeAndFlush(buf);</div><div class="line">	&#125;</div><div class="line"></div><div class="line"></div><div class="line">	/*</div><div class="line">	 * channelInactive</div><div class="line">	 * </div><div class="line">	 * channel 	通道</div><div class="line">	 * Inactive 不活跃的</div><div class="line">	 * </div><div class="line">	 * 当客户端主动断开服务端的链接后，这个通道就是不活跃的。也就是说客户端与服务端的关闭了通信通道并且不可以传输数据</div><div class="line">	 * </div><div class="line">	 */</div><div class="line">	public void channelInactive(ChannelHandlerContext ctx) throws Exception &#123;</div><div class="line">		System.out.println(&quot;Client-Server已经断开&quot;);</div><div class="line">		super.channelInactive(ctx);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	/*</div><div class="line">	 * channelRead0</div><div class="line">	 * </div><div class="line">	 * channel 通道</div><div class="line">	 * Read    读</div><div class="line">	 * </div><div class="line">	 * I msg</div><div class="line">	 * I 枚举类型根据你继承的SimpleChannelInboundHandler&lt;I&gt;设置来的</div><div class="line">	 * </div><div class="line">	 * 同样你用channelRead也可以处理数据，但是作者已经提供了channelRead0，并且是抽象类</div><div class="line">	 * </div><div class="line">	 * 简而言之就是从通道中读取数据，也就是服务端接收客户端发来的数据</div><div class="line">	 * 但是这个数据在不进行解码时它是ByteBuf类型的后面例子我们在介绍</div><div class="line">	 * </div><div class="line">	 */</div><div class="line">		protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception &#123;</div><div class="line">			//System.out.println(new Date()+&quot; 收到数据：&quot;);</div><div class="line">			//System.out.println(msg);</div><div class="line">			// 注意此处已经不需要手工解码了</div><div class="line">			System.out.println(new Date()+&quot; &quot;+msg);</div><div class="line">			</div><div class="line">			// 通知您已经链接上客户端</div><div class="line">			String str = &quot;服务端收到：&quot;+new Date()+&quot; &quot;+msg;</div><div class="line">			ByteBuf buf = Unpooled.buffer(str.getBytes().length);</div><div class="line">			buf.writeBytes(str.getBytes());</div><div class="line">			ctx.writeAndFlush(buf);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">//		protected void channelRead(ChannelHandlerContext ctx, String msg) throws Exception &#123;</div><div class="line">//		// 注意此处已经不需要手工解码了</div><div class="line">//		System.out.println(new Date()+&quot; &quot;+msg);</div><div class="line">//		</div><div class="line">//		// 通知您已经链接上客户端</div><div class="line">//		String str = &quot;服务端收到：&quot;+new Date()+&quot; &quot;+msg;</div><div class="line">//		ByteBuf buf = Unpooled.buffer(str.getBytes().length);</div><div class="line">//		buf.writeBytes(str.getBytes());</div><div class="line">//		ctx.writeAndFlush(buf);</div><div class="line">//	&#125;</div><div class="line">	/*</div><div class="line">	 * channelReadComplete</div><div class="line">	 * </div><div class="line">	 * channel  通道</div><div class="line">	 * Read     读取</div><div class="line">	 * Complete 完成</div><div class="line">	 * </div><div class="line">	 * 在通道读取完成后会在这个方法里通知，对应可以做刷新操作</div><div class="line">	 * ctx.flush()</div><div class="line">	 * </div><div class="line">	 */</div><div class="line">	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception &#123;</div><div class="line">		super.channelReadComplete(ctx);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	/*</div><div class="line">	 * exceptionCaught</div><div class="line">	 * </div><div class="line">	 * exception	异常</div><div class="line">	 * Caught		抓住</div><div class="line">	 * </div><div class="line">	 * 抓住异常，当发生异常的时候，可以做一些相应的处理，比如打印日志、关闭链接</div><div class="line">	 * </div><div class="line">	 */</div><div class="line">	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception &#123;</div><div class="line">		super.exceptionCaught(ctx, cause);</div><div class="line">		ctx.close();</div><div class="line">		System.out.println(&quot;异常信息：\r\n&quot;+cause.getMessage());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>NettyServer类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">import io.netty.bootstrap.ServerBootstrap;</div><div class="line">import io.netty.channel.ChannelFuture;</div><div class="line">import io.netty.channel.ChannelOption;</div><div class="line">import io.netty.channel.EventLoopGroup;</div><div class="line">import io.netty.channel.nio.NioEventLoopGroup;</div><div class="line">import io.netty.channel.socket.nio.NioServerSocketChannel;</div><div class="line"></div><div class="line">public class NettyServer &#123;</div><div class="line"></div><div class="line">	public void bind() &#123;</div><div class="line"></div><div class="line">		EventLoopGroup bossGroup = new NioEventLoopGroup();</div><div class="line">		EventLoopGroup workGroup = new NioEventLoopGroup();</div><div class="line"></div><div class="line">		try &#123;</div><div class="line"></div><div class="line">			ServerBootstrap b = new ServerBootstrap();</div><div class="line">			b.group(bossGroup, workGroup);</div><div class="line">			b.channel(NioServerSocketChannel.class);</div><div class="line">			b.option(ChannelOption.SO_BACKLOG, 1024);</div><div class="line">			b.childHandler(new ChildChannelHandler());</div><div class="line"></div><div class="line">			// 绑定端口</div><div class="line">			ChannelFuture f = b.bind(3333).sync();</div><div class="line"></div><div class="line">			// 等待服务端监听端口关闭</div><div class="line">			f.channel().closeFuture().sync();</div><div class="line">		&#125; catch (Exception e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125; finally &#123;</div><div class="line">			// </div><div class="line">			bossGroup.shutdownGracefully();</div><div class="line">			workGroup.shutdownGracefully();</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="NettyClient-Demo"><a href="#NettyClient-Demo" class="headerlink" title="NettyClient Demo"></a>NettyClient Demo</h4><ul>
+<li>NettyClient类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">package com.netty4;</div><div class="line"></div><div class="line">import io.netty.bootstrap.Bootstrap;</div><div class="line">import io.netty.channel.ChannelFuture;</div><div class="line">import io.netty.channel.ChannelOption;</div><div class="line">import io.netty.channel.EventLoopGroup;</div><div class="line">import io.netty.channel.nio.NioEventLoopGroup;</div><div class="line">import io.netty.channel.socket.nio.NioSocketChannel;</div><div class="line"> </div><div class="line">public class NettyClient &#123;</div><div class="line"> </div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		try &#123;</div><div class="line">			new NettyClient().connect(&quot;192.168.1.164&quot;, 3333);</div><div class="line">		&#125; catch (Exception e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	public void connect(String inetHost,int inetPort) throws Exception&#123;</div><div class="line">		</div><div class="line">		EventLoopGroup group = new NioEventLoopGroup();</div><div class="line">		</div><div class="line">		try &#123;</div><div class="line"> </div><div class="line">			Bootstrap b = new Bootstrap();</div><div class="line">			</div><div class="line">			b.group(group);								//group 组</div><div class="line">			b.channel(NioSocketChannel.class);			//channel 通道</div><div class="line">			b.option(ChannelOption.TCP_NODELAY, true);	//option 选项</div><div class="line">			b.handler(new ChildChannelHandler());		//handler 处理</div><div class="line">			</div><div class="line">			//发起异步链接</div><div class="line">			ChannelFuture f = b.connect(inetHost, inetPort);</div><div class="line">			</div><div class="line">			//等待客户端链路关闭</div><div class="line">			f.channel().closeFuture().sync();</div><div class="line">			</div><div class="line">		&#125; finally&#123;</div><div class="line">			group.shutdownGracefully();</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>ChildChannelHandler类 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">package com.netty4;</div><div class="line"></div><div class="line">import io.netty.channel.ChannelInitializer;</div><div class="line">import io.netty.channel.socket.SocketChannel;</div><div class="line"> </div><div class="line">public class ChildChannelHandler extends ChannelInitializer&lt;SocketChannel&gt;&#123;</div><div class="line"> </div><div class="line">	@Override</div><div class="line">	protected void initChannel(SocketChannel e) throws Exception &#123;</div><div class="line"> </div><div class="line">		System.out.println(&quot;客户端链接到服务端&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/01/17/netty1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/01/08/Collection1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Collection第一篇 ArrayList源码浅析</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="netty1" data-title="Netty第一篇 入门Demo" data-url="http://yoursite.com/2017/01/17/netty1/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"runyu12345"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 张润宇
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">学习笔记</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="https://trade.5ifund.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>同花顺爱基金</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;br&gt;现就职于同花顺&lt;br&gt;基金事业部Java菜鸟一只&lt;br&gt;  &lt;br&gt;四体不勤,五谷不分&lt;br&gt;文不能凑字,武不能防身&lt;br&gt;</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

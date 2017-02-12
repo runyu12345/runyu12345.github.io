@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>Push | Runyu&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近几天不是很忙,在读.书中关于多线程的知识讲解的非常好,无奈的是没有实际应用场景做支撑,学到的知识还是不知道怎么用.刚好Push中涉及到的多线程处理,消息队列模型也都是盲点.本着多学习的态度,有了记一次Push的想法~
+
+Push Mail是用来描述电子邮件系统，提供了一个“永远在线”的能力：新的电子邮件会在到达邮件传递代理（MDA，一般称为邮件服务器）时被主动发送（Push）到用户邮件代理（M">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Push">
+<meta property="og:url" content="http://yoursite.com/2017/02/12/Push/index.html">
+<meta property="og:site_name" content="Runyu's Blog">
+<meta property="og:description" content="最近几天不是很忙,在读.书中关于多线程的知识讲解的非常好,无奈的是没有实际应用场景做支撑,学到的知识还是不知道怎么用.刚好Push中涉及到的多线程处理,消息队列模型也都是盲点.本着多学习的态度,有了记一次Push的想法~
+
+Push Mail是用来描述电子邮件系统，提供了一个“永远在线”的能力：新的电子邮件会在到达邮件传递代理（MDA，一般称为邮件服务器）时被主动发送（Push）到用户邮件代理（M">
+<meta property="og:updated_time" content="2017-02-12T12:00:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Push">
+<meta name="twitter:description" content="最近几天不是很忙,在读.书中关于多线程的知识讲解的非常好,无奈的是没有实际应用场景做支撑,学到的知识还是不知道怎么用.刚好Push中涉及到的多线程处理,消息队列模型也都是盲点.本着多学习的态度,有了记一次Push的想法~
+
+Push Mail是用来描述电子邮件系统，提供了一个“永远在线”的能力：新的电子邮件会在到达邮件传递代理（MDA，一般称为邮件服务器）时被主动发送（Push）到用户邮件代理（M">
+  
+    <link rel="alternative" href="/atom.xml" title="Runyu&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/kenan.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">张润宇</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">我的主页</a></li>
+	        
+				<li><a href="/tags/随笔/">随笔</a></li>
+	        
+				<li><a href="/tags/学习笔记/">学习笔记</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/runyu12345" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/runyu12345-26/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:runyu12345@163.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">张润宇</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/kenan.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">张润宇</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">我的主页</a></li>
+		        
+					<li><a href="/tags/随笔/">随笔</a></li>
+		        
+					<li><a href="/tags/学习笔记/">学习笔记</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/runyu12345" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/runyu12345-26/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:runyu12345@163.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-Push" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Push
+    </h1>
+  
+
+        <a href="/2017/02/12/Push/" class="archive-article-date">
+  	<time datetime="2017-02-12T11:59:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-12</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近几天不是很忙,在读<java并发编程实战>.书中关于多线程的知识讲解的非常好,无奈的是没有实际应用场景做支撑,学到的知识还是不知道怎么用.刚好Push中涉及到的多线程处理,消息队列模型也都是盲点.本着多学习的态度,有了记一次Push的想法~</java并发编程实战></p>
+<blockquote>
+<p>Push Mail是用来描述电子邮件系统，提供了一个“永远在线”的能力：新的电子邮件会在到达邮件传递代理（MDA，一般称为邮件服务器）时被主动发送（Push）到用户邮件代理（MUA，也被称为电子邮件客户端）。今天的大多数客户都是使用智能手机来进行Push Mail。(以上对<a href="https://zh.wikipedia.org/wiki/Push_Mail" target="_blank" rel="external">Push Mail</a>的解释摘自维基百科,打不开的请自行穿越火线)</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="给小米打一波广告"><a href="#给小米打一波广告" class="headerlink" title="给小米打一波广告"></a>给小米打一波广告</h2><p><a href="http://dev.xiaomi.com/mipush/downpage/" target="_blank" rel="external">小米Push开放平台</a><br>提供了包括客户端与服务端在内的SDK支持.</p>
+<h2 id="Push服务器端主要流程"><a href="#Push服务器端主要流程" class="headerlink" title="Push服务器端主要流程"></a>Push服务器端主要流程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">graph TD</div><div class="line">A[读取文件中内容,插入到消息队列中]--&gt;B[启动多个线程处理消息队列中的数据]</div><div class="line">B--&gt;|ThreadOne|C1[读取消息队列中的数据]</div><div class="line">C1--&gt;C2[组装消息体]</div><div class="line">C2--&gt;C3[发送]</div><div class="line">B--&gt;|ThreadTwo|D1[读取消息队列中的数据]</div><div class="line">D1--&gt;D2[组装消息体]</div><div class="line">D2--&gt;D3[发送]</div><div class="line">B--&gt;|ThreadThree|E1[读取消息队列中的数据]</div><div class="line">E1--&gt;E2[组装消息体]</div><div class="line">E2--&gt;E3[发送]</div></pre></td></tr></table></figure>
+<h2 id="知识点说明"><a href="#知识点说明" class="headerlink" title="知识点说明"></a>知识点说明</h2><h3 id="Java消息服务（Java-Message-Service，JMS）"><a href="#Java消息服务（Java-Message-Service，JMS）" class="headerlink" title="Java消息服务（Java Message Service，JMS）"></a>Java消息服务（Java Message Service，JMS）</h3><blockquote>
+<p>Java 消息服务（Java Message Service，JMS）应用程序接口是一个Java 平台中关于面向消息中间件（MOM）的API，用于在两个应用程序之间，或分布式系统中发送消息，进行异步通信。Java 消息服务是一个与具体平台无关的 API，绝大多数 MOM 提供商都对 JMS 提供支持。<br>Java 消息服务的规范包括两种消息模式，点对点和发布者/订阅者。许多提供商支持这一通用框架因此，程序员可以在他们的分布式软件中实现面向消息的操作，这些操作将具有不同面向消息中间件产品的可移植性。<br>Java 消息服务支持同步和异步的消息处理，在某些场景下，异步消息是必要的；在其他场景下，异步消息比同步消息操作更加便利。</p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/chenpi/p/5559349.html" target="_blank" rel="external">JMS(Java消息服务)入门教程</a>这篇博客用来学习基本知识(概念,用途,原理)还是非常不错的.</p>
+<h3 id="消息队列的概念"><a href="#消息队列的概念" class="headerlink" title="消息队列的概念"></a>消息队列的概念</h3><blockquote>
+<p>在计算机科学中，消息队列（英语：Message queue）是一种进程间通信或同一进程的不同线程间的通信方式，软件的贮列用来处理一系列的输入，通常是来自用户。消息队列提供了异步的通信协议，每一个贮列中的纪录包含详细说明的数据，包含发生的时间，输入设备的种类，以及特定的输入参数，也就是说：消息的发送者和接收者不需要同时与消息队列互交。消息会保存在队列中，直到接收者取回它(以上对<a href="https://zh.wikipedia.org/wiki/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97" target="_blank" rel="external">消息队列</a>的解释摘自维基百科,打不开的请自行穿越火线)</p>
+</blockquote>
+<h3 id="阻塞队列（BlockingQueue）"><a href="#阻塞队列（BlockingQueue）" class="headerlink" title="阻塞队列（BlockingQueue）"></a>阻塞队列（BlockingQueue）</h3><blockquote>
+<p>阻塞队列（BlockingQueue）是一个支持两个附加操作的队列。这两个附加的操作是：在队列为空时，获取元素的线程会等待队列变为非空。当队列满时，存储元素的线程会等待队列可用。阻塞队列常用于生产者和消费者的场景，生产者是往队列里添加元素的线程，消费者是从队列里拿元素的线程。阻塞队列就是生产者存放元素的容器，而消费者也只从容器里拿元素。</p>
+</blockquote>
+<h4 id="Java-JDK中的阻塞队列"><a href="#Java-JDK中的阻塞队列" class="headerlink" title="Java JDK中的阻塞队列"></a>Java JDK中的阻塞队列</h4><ul>
+<li>ArrayBlockingQueue ：一个由数组结构组成的有界阻塞队列。</li>
+<li>LinkedBlockingQueue ：一个由链表结构组成的有界阻塞队列。</li>
+<li>PriorityBlockingQueue ：一个支持优先级排序的无界阻塞队列。</li>
+<li>DelayQueue：一个使用优先级队列实现的无界阻塞队列。</li>
+<li>SynchronousQueue：一个不存储元素的阻塞队列。</li>
+<li>LinkedTransferQueue：一个由链表结构组成的无界阻塞队列。</li>
+<li>LinkedBlockingDeque：一个由链表结构组成的双向阻塞队列。</li>
+</ul>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><h4 id="变量与常量"><a href="#变量与常量" class="headerlink" title="变量与常量"></a>变量与常量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">   /**</div><div class="line"> * 读取文件时缓冲流的大小</div><div class="line"> */</div><div class="line">       private static final int DEFAULT_LEN = 1000;</div><div class="line">/**</div><div class="line"> * 致命毒药，用于干掉处理数据的线程。</div><div class="line"> */</div><div class="line">public final Object POISON = new Object();</div><div class="line">/**</div><div class="line"> * 阻塞队列(存放消息内容)</div><div class="line"> * ArrayBlockingQueue维护的是一个定长的数组,初始化是必须指定数组的大小</div><div class="line"> */</div><div class="line">private BlockingQueue&lt;Object&gt; queue = new ArrayBlockingQueue&lt;Object&gt;(64);</div><div class="line">/**</div><div class="line"> * errorHandler</div><div class="line"> */</div><div class="line">private ErrorHandler errorHandler = ErrorHandler.PRINTER;</div><div class="line">/**</div><div class="line"> * 用于终止读取线程，非强制终止。</div><div class="line"> */</div><div class="line">private volatile boolean running = false;</div><div class="line">/**</div><div class="line"> * 数据读取线程</div><div class="line"> */</div><div class="line">private Thread fileReader;</div><div class="line">/**</div><div class="line"> * 数据处理线程</div><div class="line"> */</div><div class="line">private Thread[] proccessors;</div></pre></td></tr></table></figure>
+<h4 id="读取线程与分发线程"><a href="#读取线程与分发线程" class="headerlink" title="读取线程与分发线程"></a>读取线程与分发线程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">public BigFileProcessor(final InputStream file, final DataHandler handler) &#123;</div><div class="line">		fileReader = new Thread(new Runnable() &#123;</div><div class="line">			public void run() &#123;</div><div class="line">				BufferedReader reader = null;</div><div class="line">				try &#123;</div><div class="line">					Charset charset = Charset.defaultCharset();</div><div class="line">					reader = new BufferedReader(new InputStreamReader(file,charset));</div><div class="line">					String line = null;</div><div class="line">					ArrayList&lt;String&gt; cache = new ArrayList&lt;String&gt;();</div><div class="line">					while(running&amp;&amp;(line=reader.readLine())!=null)&#123;</div><div class="line">						line = line.trim();</div><div class="line">						if(line != &quot;&quot; &amp;&amp; line != null)&#123;</div><div class="line">							cache.add(line);</div><div class="line">						&#125;</div><div class="line">						if(cache.size() == DEFAULT_LEN)&#123;</div><div class="line">							Object tmpCache = ((ArrayList&lt;String&gt;)cache).clone();</div><div class="line">							queue.put(tmpCache);</div><div class="line">							cache.clear();</div><div class="line">						&#125;</div><div class="line">					&#125;</div><div class="line">					if(cache.size() &gt;0)&#123;</div><div class="line">						Object tmpCache = ((ArrayList&lt;String&gt;)cache).clone();</div><div class="line">						queue.put(tmpCache);</div><div class="line">					&#125;</div><div class="line">				&#125; catch (Throwable t) &#123;</div><div class="line">					errorHandler.doHandler(t);</div><div class="line">				&#125; finally &#123;</div><div class="line">					try &#123;</div><div class="line">						queue.put(POISON);</div><div class="line">						if(reader != null)&#123;</div><div class="line">							reader.close();</div><div class="line">							reader = null;</div><div class="line">						&#125;</div><div class="line">					&#125; catch (Exception e) &#123;</div><div class="line">						errorHandler.doHandler(e);</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;,&quot;reader_thread&quot;);</div><div class="line">		</div><div class="line">		//默认创建的线程数，与CPU处理的内核数相同，楼主可以自行更改。</div><div class="line">		proccessors = new Thread[Runtime.getRuntime().availableProcessors()];</div><div class="line">		Runnable worker = new Runnable() &#123;</div><div class="line">			public void run() &#123;</div><div class="line">				//System.out.println(&quot;worker start:&quot; + Thread.currentThread().getName());</div><div class="line">				try &#123;</div><div class="line">					for(;;)&#123;</div><div class="line">						Object obj = queue.take();</div><div class="line">						</div><div class="line">						if(obj==POISON)&#123;</div><div class="line">							//System.out.println(&quot;worker end:&quot; + Thread.currentThread().getName());</div><div class="line">							queue.put(obj);</div><div class="line">							break;</div><div class="line">						&#125;else&#123;</div><div class="line">							List&lt;String&gt; data =(List&lt;String&gt;)obj;</div><div class="line">						</div><div class="line">							handler.doHandler(data);</div><div class="line">						&#125;</div><div class="line">					&#125;</div><div class="line">				&#125; catch (Throwable t) &#123;</div><div class="line">					errorHandler.doHandler(t);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;;</div><div class="line">		for(int i=0;i&lt;proccessors.length;i++)&#123;</div><div class="line">			proccessors[i] = new Thread(worker,&quot;proccessor-thread_&quot;+i);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public void setErrorHandler(ErrorHandler errorHandler) &#123;</div><div class="line">		this.errorHandler = errorHandler;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Push实战/">Push实战</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/02/12/Push/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/02/05/Collection2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Collection第二篇-HashMap源码解析</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Push" data-title="Push" data-url="http://yoursite.com/2017/02/12/Push/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"runyu12345"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 张润宇
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Push实战</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">学习笔记</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="https://trade.5ifund.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>同花顺爱基金</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;br&gt;现就职于同花顺&lt;br&gt;基金事业部Java菜鸟一只&lt;br&gt;  &lt;br&gt;四体不勤,五谷不分&lt;br&gt;文不能凑字,武不能防身&lt;br&gt;</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

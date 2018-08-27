@@ -6,18 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>面试问题列表 | Runyu&#39;s Blog</title>
+  <title>Java JUC之 我所理解的CAS | Runyu&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前几天看到有人分享面试题,自己问了自己一下.发现有些问题是工作中经常用到的却没有系统的学习过,不能回答的很彻底.有些问题根本不知道.当然,也有些问题是研究过的,不过不是很系统.所以整理到博客,后续会抽空每个问题都附上一篇解答.">
+  <meta name="description" content="我所理解的生活就是做着自己喜欢的事情，养活自己，养活家人。生活不是攀爬高山，也不是深潜海沟，它只是在一张标配的床上睡出你的身形。我所理解的生活, 就是和自己喜欢的一切在一起。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试问题列表">
-<meta property="og:url" content="http://yoursite.com/2018/05/07/interviewList/index.html">
+<meta property="og:title" content="Java JUC之 我所理解的CAS">
+<meta property="og:url" content="http://yoursite.com/2018/08/28/20180828_JUC_CAS/index.html">
 <meta property="og:site_name" content="Runyu's Blog">
-<meta property="og:description" content="前几天看到有人分享面试题,自己问了自己一下.发现有些问题是工作中经常用到的却没有系统的学习过,不能回答的很彻底.有些问题根本不知道.当然,也有些问题是研究过的,不过不是很系统.所以整理到博客,后续会抽空每个问题都附上一篇解答.">
-<meta property="og:updated_time" content="2018-05-07T16:13:55.000Z">
+<meta property="og:description" content="我所理解的生活就是做着自己喜欢的事情，养活自己，养活家人。生活不是攀爬高山，也不是深潜海沟，它只是在一张标配的床上睡出你的身形。我所理解的生活, 就是和自己喜欢的一切在一起。">
+<meta property="og:updated_time" content="2018-08-27T16:50:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="面试问题列表">
-<meta name="twitter:description" content="前几天看到有人分享面试题,自己问了自己一下.发现有些问题是工作中经常用到的却没有系统的学习过,不能回答的很彻底.有些问题根本不知道.当然,也有些问题是研究过的,不过不是很系统.所以整理到博客,后续会抽空每个问题都附上一篇解答.">
+<meta name="twitter:title" content="Java JUC之 我所理解的CAS">
+<meta name="twitter:description" content="我所理解的生活就是做着自己喜欢的事情，养活自己，养活家人。生活不是攀爬高山，也不是深潜海沟，它只是在一张标配的床上睡出你的身形。我所理解的生活, 就是和自己喜欢的一切在一起。">
   
     <link rel="alternative" href="/atom.xml" title="Runyu&#39;s Blog" type="application/atom+xml">
   
@@ -143,95 +143,55 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-interviewList" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-20180828_JUC_CAS" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      面试问题列表
+      Java JUC之 我所理解的CAS
     </h1>
   
 
-        <a href="/2018/05/07/interviewList/" class="archive-article-date">
-  	<time datetime="2018-05-07T15:16:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-07</time>
+        <a href="/2018/08/28/20180828_JUC_CAS/" class="archive-article-date">
+  	<time datetime="2018-08-27T16:45:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-28</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>前几天看到有人分享面试题,自己问了自己一下.发现有些问题是工作中经常用到的却没有系统的学习过,不能回答的很彻底.有些问题根本不知道.当然,也有些问题是研究过的,不过不是很系统.所以整理到博客,后续会抽空每个问题都附上一篇解答.<br><a id="more"></a></p>
+<p>我所理解的生活就是做着自己喜欢的事情，养活自己，养活家人。生活不是攀爬高山，也不是深潜海沟，它只是在一张标配的床上睡出你的身形。我所理解的生活, 就是和自己喜欢的一切在一起。<br><a id="more"></a><br>JUC是Java并发编程包(java.util.concurrent)的缩写. 这个包提供了并发编程常用的工具类.比如: 线程池, CountdownLatch, ConcurrentHashMap, ReentrantLock等.这些工具类,都是通过CAS实现的.所以深入学习Java并发编程,第一步必须要学习CAS.</p>
 </blockquote>
-<h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><ol>
-<li>String为什么是final的?</li>
-<li>HashMap源码,实现原理,底层结构.</li>
-<li>反射中,Class.forName和classloader的区别.</li>
-<li>session与cookie的区别和联系.session声明周期,多服务器部署时session管理.</li>
-<li>Java中的队列有哪些?有什么区别.</li>
-<li>Java的内存模型以及GC算法.</li>
-<li>Java7和Java8的新特性.</li>
-<li>Java数组和链表两种结构的操作效率,在哪些情况下(从头开始,从结尾开始,从中间开始),哪些操作(插入,查找,删除)的效率高.</li>
-<li>Java内存泄漏的问题调查定位,jmap,jstack的使用等.</li>
-</ol>
-<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1><ol>
-<li>struts2和SpringMVC的区别.</li>
-<li>Spring框架中需要引入哪些jar包,以及这些jar包的用途?(这是个什么鬼题目)</li>
-<li>SpringMVC的原理.注解的意思.</li>
-<li>Spring中BeanFactory和applicationContext的区别和联系.</li>
-<li>Spring注入的几种方式.</li>
-<li>Spring如何实现事务管理.</li>
-<li>SpringIOC和AOP的原理.</li>
-<li>Spring循环注入的方式.</li>
-</ol>
-<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><ol>
-<li>Java创建线程之后,直接调用start()方法和run()方法的区别.</li>
-<li>常用的线程池模式以及不同线程池的使用场景.</li>
-<li>newFixedThreadPool此种线程池如果线程数达到最大值后会怎么办?底层原理.</li>
-<li>多线程之间通信的同步问题,synchronized锁的是对象,延伸出和synchronized相关很多的具体问题,例如:<br>同一个类不同方法都有synchronized锁,一个对象是否可以同时访问. 或者一个类的static构造方法加上synchronized之后的锁的影响.</li>
-<li>可重入锁的含义,以及ReentrantLock和synchronized的区别.</li>
-<li>同步的数据结构(即:线程安全的数据结构)例如:concurrentHashMap的源码理解以及内部实现原理,为什么他是同步的且效率高.</li>
-<li>atomicinteger和volatile等线程安全操作关键字的理解和使用.</li>
-<li>线程间通信,wait和notify.</li>
-<li>定时线程的使用.</li>
-<li>场景:在一个主线程中,要求有大量的子线程执行完成之后,主线程才执行完成.多种方式,考虑效率.</li>
-</ol>
-<h1 id="网络通信"><a href="#网络通信" class="headerlink" title="网络通信"></a>网络通信</h1><ol>
-<li>HTTP是无状态通信,HTTP请求方式有哪些?可以自己定义新的请求方式么?</li>
-<li>socket通信,以及长连接,分包,连接异常断开的处理.</li>
-<li>socket通信模型的使用, AIO和NIO.</li>
-<li>socket框架Netty的使用,以及NIO的实现原理,为什么是异步非阻塞.</li>
-<li>同步和异步,阻塞和非阻塞.</li>
-</ol>
-<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><ol>
-<li>常用的Linux下的命令.</li>
-<li>大的log文件中,统计异常出现的次数,排序,或者指定输出多少行多少列的内容.(awk)</li>
-<li>调查问题的思路: 内存,CPU,句柄数,过滤,查找,模拟post和get请求等场景.</li>
-<li>shell脚本中 #!的作用.</li>
-</ol>
-<h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><ol>
-<li>MySQL存储引擎的不同.(这个问题不做考虑,pgSQL的存储引擎做重点)</li>
-<li>单个索引,联合索引,主键索引.</li>
-<li>怎么分表,以及分表以后如果想按条件分页查询怎么办.</li>
-<li>分表之后,想让一个id多个表是自增的,效率和实现.</li>
-<li>实时备份同步的配置以及原理.读写分离.</li>
-<li>索引的数据结构,B+树.</li>
-<li>事务的四个特性. 项目怎么解决这些问题.</li>
-<li>范式.</li>
-</ol>
-<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><ol>
-<li>单例模式(两种),饿汉模式的延迟加载.</li>
-<li>工厂模式.</li>
-<li>装饰着模式.</li>
-<li>观察者模式.</li>
-</ol>
-<h1 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h1><ol>
-<li>为什么用缓存,用过哪些缓存,Redis和memcahe的区别. (公司项目用SSDB较多,所以 Redis和SSDB的区别也要了解)</li>
-<li>Redis的数据结构.</li>
-<li>Redis的持久化方式,以及项目中用的哪种,为什么?</li>
-<li>redis集群的理解,怎么动态增加或者删除一个节点.而保证数据不丢失.(一致性哈希)</li>
-</ol>
+<h2 id="什么是CAS"><a href="#什么是CAS" class="headerlink" title="什么是CAS?"></a>什么是CAS?</h2><p>CAS，在Java并发应用中通常指CompareAndSwap或CompareAndSet，即比较并交换。CAS相关方法实现都在sun.misc.Unsafe类中. (这里提一下, Unsafe类的实现源码通过Idea可以很方便看,Eclipse比较麻烦)官方不建议直接使用Unsafe类,而且我们也无法构造Unsafe对象.除非使用反射的方式.</p>
+<p>CAS基本方法都有四个参数,例如compareAndSwapInt(Object o, long offset, int expected, int update).<br>参数含义依次为:</p>
+<p>Object o: 当前对象</p>
+<p>long offset: 该变量的内存地址</p>
+<p>int expected: 期望值</p>
+<p>int update: 更新值</p>
+<p>CAS有3个操作数，内存值V(offset)，旧的预期值A(expected)，要修改的新值B(update)。当且仅当预期值A(expected)和内存值V(offset)相同时，将内存值V修改为B(update)并返回true，否则什么都不做,返回false。</p>
+<h2 id="CAS的具体使用场景"><a href="#CAS的具体使用场景" class="headerlink" title="CAS的具体使用场景"></a>CAS的具体使用场景</h2><ul>
+<li>以AtomicInteger中的++操作为例:<blockquote>
+<p>这个方法通过CAS,保证多线程对AtomicInteger进行++操作结果的正确性.是CAS使用的典型方法</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Atomically increments by one the current value.</div><div class="line"> *</div><div class="line"> * @return the previous value</div><div class="line"> */</div><div class="line">public final int getAndIncrement() &#123;</div><div class="line">    for (;;) &#123;</div><div class="line">        // 获取当前的value</div><div class="line">        int current = get();</div><div class="line">        // 将当前值+1</div><div class="line">        int next = current + 1;</div><div class="line">        // 进行CAS操作,具体实现见下一个方法</div><div class="line">        /** 当前值current和内存中的值进行比较, </div><div class="line">         *  如果相同,说明没有其他线程更改,将next值更新到内存中并*  返回</div><div class="line">         *  如果不同,说明有其他线程更改了内存中的值, </div><div class="line">         *  继续循环,直到返回true为止</div><div class="line">         */</div><div class="line">        if (compareAndSet(current, next))</div><div class="line">            return current;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Atomically sets the value to the given updated value</div><div class="line"> * if the current value &#123;@code ==&#125; the expected value.</div><div class="line"> *</div><div class="line"> * @param expect the expected value</div><div class="line"> * @param update the new value</div><div class="line"> * @return true if successful. False return indicates that</div><div class="line"> * the actual value was not equal to the expected value.</div><div class="line"> */</div><div class="line">public final boolean compareAndSet(int expect, int update) &#123;</div><div class="line">    // 这一步是典型的CAS操作</div><div class="line">    return unsafe.compareAndSwapInt(this, valueOffset, expect, update);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在第一段代码中,为什么返回current不是返回next呢?理论上next和current是相同的值. </p>
+<p>个人认为, 返回current是最合理的, 因为CAS成功后, 内存中值已经被更新中current, 所以current的值和当前内存中的值肯定是一致的. </p>
+<p>如果返回next, 不能保证多个线程同时写操作对结果的影响. 因为getAndIncrement()方法并没有加锁, 假设有两个线程分别为A和B.初始值为0. 线程A刚刚CAS成功, 内存中的值已经被更新成1, 这时候刚好线程B执行了int next = current + 1; 然后线程A返回了next, 本来预期结果是1, 结果返回了2. 这就出现了线程安全问题. </p>
+<h2 id="CAS的优缺点"><a href="#CAS的优缺点" class="headerlink" title="CAS的优缺点"></a>CAS的优缺点</h2><p>CAS相对于传统synchronized加锁的方式:</p>
+<p>优点是不需要频繁切换线程, 所以减少了线程频繁切换的开销. 适用于线程竞争不激烈的情况.</p>
+<p>缺点是如果线程间竞争激烈, 会无限次增加循环的次数导致性能变差.<br>与synchronized相比, 虽然代码看似简洁,但是只能保证一个共享变量的原子操作。当对一个共享变量执行操作时，我们可以使用循环CAS的方式来保证原子操作，但是对多个共享变量操作时，循环CAS就无法保证操作的原子性. 比如: int i=1,j=2; j++;i++; 这样的场景推荐使用synchronized方式.</p>
+<p>最重要的一点是, 众所周知的A-B-A问题. 这也是CAS最重要的知识点.</p>
+<p>因为CAS需要在操作值的时候检查下值有没有发生变化,如果没有发生变化则更新,但是如果一个值原来是A,变成了B,又变成了A,那么使用CAS进行检查时会发现它的值没有发生变化.但是实际上却变化了.ABA问题的解决思路就是使用版本号.在变量前面追加上版本号,每次变量更新的时候把版本号加一,那么A－B－A 就会变成1A-2B－3A.</p>
+<p>从Java1.5开始JDK的atomic包里提供了一个类AtomicStampedReference来解决ABA问题.这个类的compareAndSet方法作用是首先检查当前引用是否等于预期引用,并且当前标志是否等于预期标志,如果全部相等,则以原子方式将该引用和该标志的值设置为给定的更新值.</p>
+<blockquote>
+<p>后记: 看懂一个知识点还是不难的, 但是能用自己的理解成文还是存在难度. 在整理成文的过程中, 已经把之前一知半解和没有注意到的细节全部理清楚. 所以今天写这篇文章还是收获颇多.</p>
+<p>我所理解的CAS, 就是通过不断的自旋比较当前值和内存中的值, 来保证在多线程环境下, 依然可以安全操作变量的一种手段.</p>
+</blockquote>
 
       
 
@@ -295,7 +255,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/05/07/interviewList/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/08/28/20180828_JUC_CAS/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -309,18 +269,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/08/28/20180828_JUC_CAS/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java JUC之 我所理解的CAS
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/15/forMyself20170315/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">写给自己</div>
+    <a href="/2018/05/07/interviewList/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">面试问题列表</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -333,7 +284,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="interviewList" data-title="面试问题列表" data-url="http://yoursite.com/2018/05/07/interviewList/"></div>
+	<div class="ds-thread" data-thread-key="20180828_JUC_CAS" data-title="Java JUC之 我所理解的CAS" data-url="http://yoursite.com/2018/08/28/20180828_JUC_CAS/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
